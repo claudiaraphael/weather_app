@@ -15,16 +15,38 @@ response = requests.get(API_CALL)
 
 # Check if the API call was successful (status code 200)
 if response.status_code == 200:
+    # The response will be in JSON format, so you can parse it using the json() method
+    # and access the data you need.
+    # For example, to get the weather description for the first forecast in the list:
     data = response.json()
     print("API call successful!")
-    print(f"Status code: {response.status_code}")
-    print(f"Response: {response.text}")
+    #print(f"Status code: {response.status_code}")
+    #print(f"Response: {response.text}")
+    
+    weather = data['list'][0]['weather'][0]['description']
+    temperature = round(data['main']['temp'] - 273.15, 2)
 
-    weather = data['weather'][0]['description']
+    print(weather)
+    print(f"Temperature: {temperature} °C")
 else:
     print("API call failed!")
     print(f"Status code: {response.status_code}")
     print(f"Response: {response.text}")
             
-# The response will be in JSON format, so you can parse it using the json() method
-#         
+  
+# Error handling
+
+# Print the full API response to see what went wrong
+# print("API response:", data)
+
+# Safely try to get weather info
+if 'weather' in data['list'][0]:
+    # Acessa a descrição do clima na primeira previsão da lista
+    weather = data['list'][0]['weather'][0]['description']
+    print("Weather description:", weather)
+
+elif 'wheather' in data['list'][0]:
+    print("❌ wheather key is in data somewhere else.", data)
+
+else:
+    print("❌ wheather key not found in data.", data)
