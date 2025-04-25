@@ -22,12 +22,11 @@ if response.status_code == 200:
     print("API call successful!")
     #print(f"Status code: {response.status_code}")
     #print(f"Response: {response.text}")
-    
-    weather = data['list'][0]['weather'][0]['description']
-    temperature = round(data['main']['temp'] - 273.15, 2)
 
+    weather = data['list'][0]['weather'][0]['description']
+    temperature = data['list'][0]['main']['temp'] - 273.15  # Convert from Kelvin to Celsius
     print(weather)
-    print(f"Temperature: {temperature} °C")
+    print(f"Temperature: {temperature:.2f} °C")
 else:
     print("API call failed!")
     print(f"Status code: {response.status_code}")
@@ -40,13 +39,13 @@ else:
 # print("API response:", data)
 
 # Safely try to get weather info
-if 'weather' in data['list'][0]:
+#if 'weather' in data['list'][0]:
     # Acessa a descrição do clima na primeira previsão da lista
-    weather = data['list'][0]['weather'][0]['description']
-    print("Weather description:", weather)
+#    weather = data['list'][0]['weather'][0]['description']
+#    print("Weather description:", weather)
 
-elif 'wheather' in data['list'][0]:
-    print("❌ wheather key is in data somewhere else.", data)
+# elif 'wheather' in data['list'][0]:
+#    print("❌ wheather key is in data somewhere else.", data)
 
-else:
-    print("❌ wheather key not found in data.", data)
+# else:
+#    print("❌ wheather key not found in data.", data)
