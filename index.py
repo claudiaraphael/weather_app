@@ -17,3 +17,14 @@ response = requests.get(API_CALL)
 if response.status_code == 200:
     data = response.json()
     print("API call successful!")
+    print(f"Status code: {response.status_code}")
+    print(f"Response: {response.text}")
+
+    weather = data['weather'][0]['description']
+else:
+    print("API call failed!")
+    print(f"Status code: {response.status_code}")
+    print(f"Response: {response.text}")
+            
+# The response will be in JSON format, so you can parse it using the json() method
+#         
